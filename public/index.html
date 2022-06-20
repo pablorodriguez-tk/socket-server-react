@@ -13,28 +13,8 @@
     />
   </head>
   <body class="container">
-    <h1 class="mt-5">MiniChat</h1>
+    <h1 class="mt-5">Acceso denegado</h1>
     <hr />
-    <form id="miFormulario">
-      <div class="row">
-        <div class="col-8">
-          <input
-            type="text"
-            class="form-control"
-            id="txtMensaje"
-            placeholder="Mensaje"
-          />
-        </div>
-        <div class="col-4">
-          <button class="btn btn-primary" type="submit">Enviar</button>
-        </div>
-      </div>
-    </form>
-    <div class="row">
-      <div class="col">
-        <ul id="misMensajes" class="mt-2"></ul>
-      </div>
-    </div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js"
       integrity="sha512-9mpsATI0KClwt+xVZfbcf2lJ8IFBAwsubJ6mI3rtULwyM3fBmQFzj0It4tGqxLOGQwGfJdk/G+fANnxfq9/cew=="
@@ -43,33 +23,16 @@
     ></script>
 
     <script>
-      const socket = io("https://react-socket-pr.herokuapp.com/");
+      // Conexión con el socket server
+      const socket = io("http://localhost:8080");
 
-      //Referencias elementos del DOM
-      const formulario = document.querySelector("#miFormulario");
-      const mensajes = document.querySelector("#misMensajes");
-      const txtMensaje = document.querySelector("#txtMensaje");
+      /// Para emitir
+      // socket.emit('mensaje-to-server', { data });
 
-      formulario.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const nuevoMensaje = txtMensaje.value;
-
-        socket.emit("mensaje-to-server", { texto: nuevoMensaje });
-      });
-
+      // Para escuchar
       socket.on("mensaje-from-server", (data) => {
-        mensajes.innerHTML += `<li>${data.texto}</li>`;
+        // callback a ejecutar
       });
-
-      socket.on("message", (data) => {
-        console.log(data);
-      });
-      // setTimeout(() => {
-      //   socket.emit("mensaje-cliente", {
-      //     mgs: "cliente",
-      //     nombre: "Pablo",
-      //   });
-      // }, 2000);
     </script>
   </body>
 </html>
